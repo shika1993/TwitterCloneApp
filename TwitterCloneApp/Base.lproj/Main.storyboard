@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,12 +32,20 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N3u-fo-aUe">
+                                <rect key="frame" x="0.0" y="113" width="414" height="783"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.80030663459689955" green="0.99217170816614175" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="N3u-fo-aUe" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Cly-U3-q53"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MWq-Lw-Rj9" secondAttribute="trailing" constant="20" id="Ctn-nC-335"/>
                             <constraint firstItem="MWq-Lw-Rj9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="E8s-bo-feK"/>
+                            <constraint firstItem="N3u-fo-aUe" firstAttribute="top" secondItem="MWq-Lw-Rj9" secondAttribute="bottom" constant="15" id="bWr-sl-SRv"/>
+                            <constraint firstItem="N3u-fo-aUe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="d09-Nm-6ue"/>
+                            <constraint firstAttribute="bottom" secondItem="N3u-fo-aUe" secondAttribute="bottom" id="l8X-KI-olR"/>
                             <constraint firstItem="MWq-Lw-Rj9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wsB-oK-PUf"/>
                         </constraints>
                     </view>
@@ -48,5 +57,8 @@
     </scenes>
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
