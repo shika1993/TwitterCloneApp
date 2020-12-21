@@ -51,6 +51,11 @@
                             <constraint firstItem="MWq-Lw-Rj9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wsB-oK-PUf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchButton" destination="qBA-As-Swx" id="K0f-jT-6ay"/>
+                        <outlet property="searchTextField" destination="wUh-7h-P0O" id="88V-jy-w66"/>
+                        <outlet property="tweetTimeLineTableView" destination="N3u-fo-aUe" id="bV1-LU-Jl0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
