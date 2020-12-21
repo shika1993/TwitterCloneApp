@@ -11,5 +11,4 @@ target 'TwitterCloneApp' do
   pod 'IQKeyboardManagerSwift'
   pod 'SDWebImage'
   pod 'PKHUD'
-  pod 'Swifter'
 end
