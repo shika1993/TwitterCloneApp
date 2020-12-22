@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31AF62679EDDFFF0F2742E74 /* Pods_TwitterCloneApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D278390A4DD963D317518AF /* Pods_TwitterCloneApp.framework */; };
+		37628978259233910057F832 /* GetTweetsFromApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37628977259233910057F832 /* GetTweetsFromApi.swift */; };
 		37F3C18D258F674B0029CDE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F3C18C258F674B0029CDE7 /* AppDelegate.swift */; };
 		37F3C18F258F674B0029CDE7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F3C18E258F674B0029CDE7 /* SceneDelegate.swift */; };
 		37F3C191258F674B0029CDE7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F3C190258F674B0029CDE7 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37628977259233910057F832 /* GetTweetsFromApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTweetsFromApi.swift; sourceTree = "<group>"; };
 		37F3C189258F674B0029CDE7 /* TwitterCloneApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterCloneApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37F3C18C258F674B0029CDE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37F3C18E258F674B0029CDE7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				37F3C19A258F674C0029CDE7 /* Info.plist */,
 				37F3C1A9258F6B470029CDE7 /* TweetCellTableViewCell.swift */,
 				37F3C1AA258F6B470029CDE7 /* TweetCellTableViewCell.xib */,
+				37628977259233910057F832 /* GetTweetsFromApi.swift */,
 			);
 			path = TwitterCloneApp;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37F3C191258F674B0029CDE7 /* ViewController.swift in Sources */,
+				37628978259233910057F832 /* GetTweetsFromApi.swift in Sources */,
 				37F3C18D258F674B0029CDE7 /* AppDelegate.swift in Sources */,
 				37F3C18F258F674B0029CDE7 /* SceneDelegate.swift in Sources */,
 				37F3C1AB258F6B470029CDE7 /* TweetCellTableViewCell.swift in Sources */,
