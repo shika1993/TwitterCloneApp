@@ -7,19 +7,29 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController,finishGetTweetInfoDelegate {
+    func finishGetTweetInfo(tweets: [Tweet]) {
+        print(tweets)
+    }
+    
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var tweetTimeLineTableView: UITableView!
+    let getTweet = GetTweetsFromApi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getTweet.finishGetTweetInfodelegate = self
         tweetTimeLineTableView.dataSource = self
         tweetTimeLineTableView.estimatedRowHeight = 600
         tweetTimeLineTableView.rowHeight = UITableView.automaticDimension
         tweetTimeLineTableView.register(UINib(nibName: "TweetCellTableViewCell", bundle: nil), forCellReuseIdentifier: "customTweetCell")
+        
+    }
+    
+    @IBAction func serchTweetWithKeyWord(_ sender: UIButton) {
+        getTweet.makeRequest(keyWord: searchTextField.text!)
     }
     
 }
