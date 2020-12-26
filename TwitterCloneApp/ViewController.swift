@@ -15,8 +15,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var tweetTimeLineTableView: UITableView!
     let getTweet = GetTweetsFromApi()
-    let profileImageSizeTransformer = SDImageResizingTransformer(size: CGSize(width: 50, height: 50),scaleMode: .aspectFit)
-    let mediaImageSizeTransformer = SDImageResizingTransformer(size: CGSize(width: 200, height: 300),scaleMode: .aspectFit)
+    let dateformatter = DateFormatter()
     var timeLineTweets:[Tweet] = []
     
     override func viewDidLoad() {
@@ -28,12 +27,12 @@ class ViewController: UIViewController{
         tweetTimeLineTableView.estimatedRowHeight = 600
         tweetTimeLineTableView.rowHeight = UITableView.automaticDimension
         tweetTimeLineTableView.register(UINib(nibName: "TweetCellTableViewCell", bundle: nil), forCellReuseIdentifier: "customTweetCell")
-        
     }
     
     @IBAction func serchTweetWithKeyWord(_ sender: UIButton) {
         
         if searchTextField.text! == ""{
+            searchTextField.resignFirstResponder()
            return
         }else{
             HUD.show(.progress)
@@ -56,7 +55,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let tweetCell = tweetTimeLineTableView.dequeueReusableCell(withIdentifier: "customTweetCell") as! TweetCellTableViewCell
-        
+ 
         if timeLineTweets.count != 0{
             
             tweetCell.userProfileImageView.sd_setImage(with: URL(string: timeLineTweets[indexPath.row].profileImageUrlString), completed: nil)
@@ -65,18 +64,17 @@ extension ViewController: UITableViewDataSource {
                 tweetCell.tweetImageView.isHidden = true
             }else{
                 tweetCell.tweetImageView.isHidden = false
-                print(indexPath.row)
                 tweetCell.tweetImageView.sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlString), completed: nil)
             }
             
             tweetCell.userNameLabel.text = timeLineTweets[indexPath.row].name
-            tweetCell.userIDLabel.text = timeLineTweets[indexPath.row].userID
-            tweetCell.createdAtLabel.text = timeLineTweets[indexPath.row].createdAt
+            tweetCell.userIDLabel.text = "@\(timeLineTweets[indexPath.row].userID)"
+            tweetCell.createdAtLabel.text = String(timeLineTweets[indexPath.row].createdAt.prefix(10))
             tweetCell.messageLabel.text = timeLineTweets[indexPath.row].text
             tweetCell.favLabel.text = String(timeLineTweets[indexPath.row].favoriteCount)
             tweetCell.retweetLabel.text = String(timeLineTweets[indexPath.row].retweetCount)
         }
-
+        
         return tweetCell
     }
     
@@ -90,7 +88,8 @@ extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if searchTextField.text! == ""{
-           return true
+            searchTextField.resignFirstResponder()
+            return true
         }else{
             HUD.show(.progress)
             timeLineTweets.removeAll()
