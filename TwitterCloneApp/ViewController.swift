@@ -7,10 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,finishGetTweetInfoDelegate{
-    func finishGetTweetInfo(tweets: [Tweet]) {
-        print(tweets)
-    }
+class ViewController: UIViewController{
     
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchButton: UIButton!
@@ -30,7 +27,15 @@ class ViewController: UIViewController,finishGetTweetInfoDelegate{
     }
     
     @IBAction func serchTweetWithKeyWord(_ sender: UIButton) {
-        getTweet.makeRequest(keyWord: searchTextField.text!)
+        
+        if searchTextField.text! == ""{
+           return
+        }else{
+            getTweet.makeRequest(keyWord: searchTextField.text!)
+            searchTextField.text = ""
+            searchTextField.resignFirstResponder()
+        }
+        
     }
     
 }
@@ -44,15 +49,6 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let tweetCell = tweetTimeLineTableView.dequeueReusableCell(withIdentifier: "customTweetCell") as! TweetCellTableViewCell
-        if indexPath.row == 2 {
-            tweetCell.messageLabel.text = "１４０文字に満たない写真付き"
-        }else if indexPath.row == 3{
-            tweetCell.messageLabel.text = "１４０文字に満たない写真なし"
-            tweetCell.tweetImageView.isHidden = true
-        }else if indexPath.row == 4{
-            tweetCell.tweetImageView.isHidden = true
-        }
-        
         return tweetCell
     }
     
@@ -65,8 +61,23 @@ extension ViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        getTweet.makeRequest(keyWord: searchTextField.text!)
+        if searchTextField.text! == ""{
+           return true
+        }else{
+            getTweet.makeRequest(keyWord: searchTextField.text!)
+            searchTextField.text = ""
+            searchTextField.resignFirstResponder()
+        }
+        
         return true
     }
     
+}
+
+//MARK:- finishGetTweetInfoDelegate{
+extension ViewController: finishGetTweetInfoDelegate{
+    
+    func finishGetTweetInfo(tweets: [Tweet]) {
+        print(tweets)
+    }
 }
