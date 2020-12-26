@@ -32,9 +32,10 @@ class GetTweetsFromApi {
                 for tweetInfo in json["statuses"].arrayValue {
                     let tweet = Tweet(profileImageUrlString: tweetInfo["user"]["profile_image_url"].string ?? "",
                           name: tweetInfo["user"]["name"].string ?? "",
+                          userID: tweetInfo["user"]["screen_name"].string ?? "",
                           createdAt: tweetInfo["created_at"].string ?? "",
                           text: tweetInfo["text"].string ?? "",
-                          mediaUrl: tweetInfo["extended_entities"]["media"][0]["media_url"].string ?? "",
+                          mediaUrlString: tweetInfo["extended_entities"]["media"][0]["media_url"].string ?? "",
                           favoriteCount: tweetInfo["favorite_count"].int ?? 0,
                           retweetCount: tweetInfo["retweet_count"].int ?? 0
                         )

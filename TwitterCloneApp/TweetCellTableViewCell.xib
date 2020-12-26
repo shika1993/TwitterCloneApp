@@ -41,10 +41,8 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Csk-hK-LB5">
                         <rect key="frame" x="74" y="86" width="300" height="435"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP8-5s-6vt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wP8-5s-6vt">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="205"/>
-                                <string key="text">あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
-</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -126,7 +124,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="createdAtLabel" destination="h57-6b-Fm9" id="g0d-uU-pz3"/>
+                <outlet property="favLabel" destination="plb-h4-dbh" id="C1O-T0-wpz"/>
                 <outlet property="messageLabel" destination="wP8-5s-6vt" id="LFF-pB-U95"/>
+                <outlet property="retweetLabel" destination="Lgd-Nu-Wzw" id="1Ue-KN-YhU"/>
                 <outlet property="tweetImageView" destination="NwU-Vg-nMH" id="X5x-CD-ZHu"/>
                 <outlet property="userIDLabel" destination="991-qD-4NB" id="zSP-EF-nXb"/>
                 <outlet property="userNameLabel" destination="Snr-CQ-ybY" id="4me-3l-tEl"/>
