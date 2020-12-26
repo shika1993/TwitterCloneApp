@@ -21,9 +21,11 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         getTweet.finishGetTweetInfodelegate = self
         tweetTimeLineTableView.dataSource = self
         searchTextField.delegate = self
+        searchTextField.attributedPlaceholder = NSAttributedString(string: "キーワードを入力してください",attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         tweetTimeLineTableView.estimatedRowHeight = 600
         tweetTimeLineTableView.rowHeight = UITableView.automaticDimension
         tweetTimeLineTableView.register(UINib(nibName: "TweetCellTableViewCell", bundle: nil), forCellReuseIdentifier: "customTweetCell")
