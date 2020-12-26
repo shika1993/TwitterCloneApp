@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,finishGetTweetInfoDelegate {
+class ViewController: UIViewController,finishGetTweetInfoDelegate{
     func finishGetTweetInfo(tweets: [Tweet]) {
         print(tweets)
     }
@@ -22,6 +22,7 @@ class ViewController: UIViewController,finishGetTweetInfoDelegate {
         
         getTweet.finishGetTweetInfodelegate = self
         tweetTimeLineTableView.dataSource = self
+        searchTextField.delegate = self
         tweetTimeLineTableView.estimatedRowHeight = 600
         tweetTimeLineTableView.rowHeight = UITableView.automaticDimension
         tweetTimeLineTableView.register(UINib(nibName: "TweetCellTableViewCell", bundle: nil), forCellReuseIdentifier: "customTweetCell")
@@ -55,5 +56,17 @@ extension ViewController: UITableViewDataSource {
         return tweetCell
     }
     
+    
+}
+
+//MARK:- UITextFieldDelegate
+extension ViewController: UITextFieldDelegate {
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        getTweet.makeRequest(keyWord: searchTextField.text!)
+        return true
+    }
     
 }
