@@ -14,16 +14,13 @@ class TweetCellTableViewCell: UITableViewCell {
     @IBOutlet weak var userIDLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var tweetImageView: UIImageView!
+    @IBOutlet var tweetImageViews: [UIImageView]!
     @IBOutlet weak var favLabel: UILabel!
     @IBOutlet weak var retweetLabel: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        tweetImageView.layer.masksToBounds = false
-        tweetImageView.layer.cornerRadius = 25
-        tweetImageView.clipsToBounds = true
         userProfileImageView.layer.masksToBounds = false
         userProfileImageView.layer.cornerRadius = 25
         userProfileImageView.clipsToBounds = true

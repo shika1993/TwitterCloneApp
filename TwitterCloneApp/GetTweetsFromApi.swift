@@ -28,6 +28,7 @@ class GetTweetsFromApi {
     var cannotGetTweetFromApiDelegate: cannotGetTweetFromApiDelegate?
     var finishGetMoreTweetInfoDelegate: finishGetMoreTweetInfoDelegate?
     var tweets:[Tweet] = []
+    var medeiaUrls:[String] = []
     var Ids:[Int] = []
     
     func makeRequest(keyWord:String) {
@@ -42,6 +43,10 @@ class GetTweetsFromApi {
             if let value = response.value{
                 let json = JSON(value)
                 for tweetInfo in json["statuses"].arrayValue {
+                    for imageUrl in tweetInfo["extended_entities"]["media"].arrayValue{
+                        let url = imageUrl["media_url"].string ?? ""
+                        self.medeiaUrls.append(url)
+                    }
                     let tweet = Tweet(
                         Id: tweetInfo["id"].int ?? 0,
                         profileImageUrlString: tweetInfo["user"]["profile_image_url"].string ?? "",
@@ -49,11 +54,12 @@ class GetTweetsFromApi {
                         userID: tweetInfo["user"]["screen_name"].string ?? "",
                         createdAt: tweetInfo["created_at"].string ?? "",
                         text: tweetInfo["text"].string ?? "",
-                        mediaUrlString: tweetInfo["extended_entities"]["media"][0]["media_url"].string ?? "",
+                        mediaUrlStrings: self.medeiaUrls,
                         favoriteCount: tweetInfo["favorite_count"].int ?? 0,
                         retweetCount: tweetInfo["retweet_count"].int ?? 0
                     )
                     self.tweets.append(tweet)
+                    self.medeiaUrls.removeAll()
                     self.Ids.append(tweetInfo["id"].int ?? 0)
                 }
                 self.finishGetTweetInfodelegate?.finishGetTweetInfo(tweets: self.tweets, Ids: self.Ids)
@@ -76,6 +82,10 @@ class GetTweetsFromApi {
             if let value = response.value{
                 let json = JSON(value)
                 for tweetInfo in json["statuses"].arrayValue {
+                    for imageUrl in tweetInfo["extended_entities"]["media"].arrayValue{
+                        let url = imageUrl["media_url"].string ?? ""
+                        self.medeiaUrls.append(url)
+                    }
                     let tweet = Tweet(
                         Id: tweetInfo["id"].int ?? 0,
                         profileImageUrlString: tweetInfo["user"]["profile_image_url"].string ?? "",
@@ -83,12 +93,13 @@ class GetTweetsFromApi {
                         userID: tweetInfo["user"]["screen_name"].string ?? "",
                         createdAt: tweetInfo["created_at"].string ?? "",
                         text: tweetInfo["text"].string ?? "",
-                        mediaUrlString: tweetInfo["extended_entities"]["media"][0]["media_url"].string ?? "",
+                        mediaUrlStrings: self.medeiaUrls,
                         favoriteCount: tweetInfo["favorite_count"].int ?? 0,
                         retweetCount: tweetInfo["retweet_count"].int ?? 0
                     )
                     
                     self.tweets.append(tweet)
+                    self.medeiaUrls.removeAll()
                     self.Ids.append(tweetInfo["id"].int ?? 0)
                 }
                 self.finishGetMoreTweetInfoDelegate?.finishGetMoreTweetInfo(tweets: self.tweets, Ids: self.Ids)
