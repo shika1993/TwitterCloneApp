@@ -73,20 +73,44 @@
 		37F3C18B258F674B0029CDE7 /* TwitterCloneApp */ = {
 			isa = PBXGroup;
 			children = (
+				37FEFDF325986D7800ECA20C /* controller */,
+				37FEFDF225986D7200ECA20C /* view */,
+				37FEFDF125986D6B00ECA20C /* model */,
 				37F3C18C258F674B0029CDE7 /* AppDelegate.swift */,
 				37F3C18E258F674B0029CDE7 /* SceneDelegate.swift */,
-				37F3C190258F674B0029CDE7 /* ViewController.swift */,
-				37F3C192258F674B0029CDE7 /* Main.storyboard */,
 				37F3C195258F674C0029CDE7 /* Assets.xcassets */,
-				37F3C197258F674C0029CDE7 /* LaunchScreen.storyboard */,
 				37F3C19A258F674C0029CDE7 /* Info.plist */,
-				37F3C1A9258F6B470029CDE7 /* TweetCellTableViewCell.swift */,
-				37F3C1AA258F6B470029CDE7 /* TweetCellTableViewCell.xib */,
-				37628977259233910057F832 /* GetTweetsFromApi.swift */,
-				373744172592347600E16E0C /* K.swift */,
-				3737441A2592402A00E16E0C /* Tweet.swift */,
 			);
 			path = TwitterCloneApp;
+			sourceTree = "<group>";
+		};
+		37FEFDF125986D6B00ECA20C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				3737441A2592402A00E16E0C /* Tweet.swift */,
+				373744172592347600E16E0C /* K.swift */,
+				37628977259233910057F832 /* GetTweetsFromApi.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		37FEFDF225986D7200ECA20C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				37F3C197258F674C0029CDE7 /* LaunchScreen.storyboard */,
+				37F3C192258F674B0029CDE7 /* Main.storyboard */,
+				37F3C1A9258F6B470029CDE7 /* TweetCellTableViewCell.swift */,
+				37F3C1AA258F6B470029CDE7 /* TweetCellTableViewCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		37FEFDF325986D7800ECA20C /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				37F3C190258F674B0029CDE7 /* ViewController.swift */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 		DFF65F9F532CF46C9F042D83 /* Pods */ = {
