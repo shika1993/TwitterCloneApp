@@ -9,6 +9,7 @@ import Foundation
 
 struct Tweet {
     
+    let Id:Int
     let profileImageUrlString:String
     let name:String
     let userID:String
@@ -18,8 +19,9 @@ struct Tweet {
     let favoriteCount:Int
     let retweetCount:Int
     
-    init(profileImageUrlString:String, name:String, userID:String, createdAt:String, text:String, mediaUrlString:String, favoriteCount:Int, retweetCount:Int){
+    init(Id:Int,profileImageUrlString:String, name:String, userID:String, createdAt:String, text:String, mediaUrlString:String, favoriteCount:Int, retweetCount:Int){
         
+        self.Id = Id
         self.profileImageUrlString = profileImageUrlString
         self.name = name
         self.userID = userID

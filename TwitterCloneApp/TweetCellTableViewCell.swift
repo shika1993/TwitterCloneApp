@@ -21,7 +21,12 @@ class TweetCellTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        tweetImageView.layer.masksToBounds = false
+        tweetImageView.layer.cornerRadius = 25
+        tweetImageView.clipsToBounds = true
+        userProfileImageView.layer.masksToBounds = false
+        userProfileImageView.layer.cornerRadius = 25
+        userProfileImageView.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

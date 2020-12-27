@@ -17,6 +17,7 @@ class ViewController: UIViewController{
     let getTweet = GetTweetsFromApi()
     let dateformatter = DateFormatter()
     var timeLineTweets:[Tweet] = []
+    var minId = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class ViewController: UIViewController{
         
         getTweet.finishGetTweetInfodelegate = self
         tweetTimeLineTableView.dataSource = self
+        tweetTimeLineTableView.delegate = self
         searchTextField.delegate = self
         searchTextField.attributedPlaceholder = NSAttributedString(string: "キーワードを入力してください",attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         tweetTimeLineTableView.estimatedRowHeight = 600
@@ -40,7 +42,6 @@ class ViewController: UIViewController{
             HUD.show(.progress)
             timeLineTweets.removeAll()
             getTweet.makeRequest(keyWord: searchTextField.text!)
-            searchTextField.text = ""
             searchTextField.resignFirstResponder()
         }
     }
@@ -48,7 +49,7 @@ class ViewController: UIViewController{
 }
 
 //MARK:- TableViewdelegate & TableviewDatasource
-extension ViewController: UITableViewDataSource {
+extension ViewController: UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeLineTweets.count
@@ -57,7 +58,6 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let tweetCell = tweetTimeLineTableView.dequeueReusableCell(withIdentifier: "customTweetCell") as! TweetCellTableViewCell
- 
         if timeLineTweets.count != 0{
             
             tweetCell.userProfileImageView.sd_setImage(with: URL(string: timeLineTweets[indexPath.row].profileImageUrlString), completed: nil)
@@ -68,7 +68,6 @@ extension ViewController: UITableViewDataSource {
                 tweetCell.tweetImageView.isHidden = false
                 tweetCell.tweetImageView.sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlString), completed: nil)
             }
-            
             tweetCell.userNameLabel.text = timeLineTweets[indexPath.row].name
             tweetCell.userIDLabel.text = "@\(timeLineTweets[indexPath.row].userID)"
             tweetCell.createdAtLabel.text = String(timeLineTweets[indexPath.row].createdAt.prefix(10))
@@ -80,7 +79,17 @@ extension ViewController: UITableViewDataSource {
         return tweetCell
     }
     
-    
+    //オートページング
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if tweetTimeLineTableView.contentOffset.y + tweetTimeLineTableView.frame.size.height > tweetTimeLineTableView.contentSize.height {
+            if timeLineTweets.count != 0{
+                
+                getTweet.makeMoreRequest(keyWord: searchTextField.text!, Id: minId)
+                HUD.show(.progress)
+            }
+        }
+    }
+
 }
 
 //MARK:- UITextFieldDelegate
@@ -96,7 +105,6 @@ extension ViewController: UITextFieldDelegate {
             HUD.show(.progress)
             timeLineTweets.removeAll()
             getTweet.makeRequest(keyWord: searchTextField.text!)
-            searchTextField.text = ""
             searchTextField.resignFirstResponder()
         }
         
@@ -108,14 +116,16 @@ extension ViewController: UITextFieldDelegate {
 //MARK:- finishGetTweetInfoDelegate
 extension ViewController: finishGetTweetInfoDelegate{
     
-    func finishGetTweetInfo(tweets: [Tweet]) {
+    func finishGetTweetInfo(tweets: [Tweet], Ids:[Int]) {
         
         if tweets.count == 0{
             showAletr()
         }else{
             timeLineTweets.append(contentsOf: tweets)
-            tweetTimeLineTableView.reloadData()
         }
+        minId = Ids.min()! - 1
+        print(timeLineTweets.count)
+        tweetTimeLineTableView.reloadData()
         HUD.hide()
     }
 }
