@@ -13,10 +13,20 @@ protocol finishGetTweetInfoDelegate{
     func finishGetTweetInfo(tweets:[Tweet], Ids:[Int])
 }
 
+protocol finishGetMoreTweetInfoDelegate{
+    func finishGetMoreTweetInfo(tweets:[Tweet], Ids:[Int])
+}
+
+protocol cannotGetTweetFromApiDelegate {
+    func cannotGetTweetFromApi()
+}
+
 class GetTweetsFromApi {
     
     let bearerToken = K.baereKey
     var finishGetTweetInfodelegate: finishGetTweetInfoDelegate?
+    var cannotGetTweetFromApiDelegate: cannotGetTweetFromApiDelegate?
+    var finishGetMoreTweetInfoDelegate: finishGetMoreTweetInfoDelegate?
     var tweets:[Tweet] = []
     var Ids:[Int] = []
     
@@ -48,6 +58,8 @@ class GetTweetsFromApi {
                 }
                 self.finishGetTweetInfodelegate?.finishGetTweetInfo(tweets: self.tweets, Ids: self.Ids)
                 self.tweets.removeAll()
+            }else{
+                self.cannotGetTweetFromApiDelegate?.cannotGetTweetFromApi()
             }
         }
     }
@@ -79,8 +91,10 @@ class GetTweetsFromApi {
                     self.tweets.append(tweet)
                     self.Ids.append(tweetInfo["id"].int ?? 0)
                 }
-                self.finishGetTweetInfodelegate?.finishGetTweetInfo(tweets: self.tweets, Ids: self.Ids)
+                self.finishGetMoreTweetInfoDelegate?.finishGetMoreTweetInfo(tweets: self.tweets, Ids: self.Ids)
                 self.tweets.removeAll()
+            }else{
+                self.cannotGetTweetFromApiDelegate?.cannotGetTweetFromApi()
             }
         }
     }

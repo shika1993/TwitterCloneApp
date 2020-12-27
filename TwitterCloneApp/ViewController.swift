@@ -24,6 +24,8 @@ class ViewController: UIViewController{
         
         
         getTweet.finishGetTweetInfodelegate = self
+        getTweet.cannotGetTweetFromApiDelegate = self
+        getTweet.finishGetMoreTweetInfoDelegate = self
         tweetTimeLineTableView.dataSource = self
         tweetTimeLineTableView.delegate = self
         searchTextField.delegate = self
@@ -43,6 +45,7 @@ class ViewController: UIViewController{
             timeLineTweets.removeAll()
             getTweet.makeRequest(keyWord: searchTextField.text!)
             searchTextField.resignFirstResponder()
+            
         }
     }
     
@@ -83,7 +86,6 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if tweetTimeLineTableView.contentOffset.y + tweetTimeLineTableView.frame.size.height > tweetTimeLineTableView.contentSize.height {
             if timeLineTweets.count != 0{
-                
                 getTweet.makeMoreRequest(keyWord: searchTextField.text!, Id: minId)
                 HUD.show(.progress)
             }
@@ -106,6 +108,7 @@ extension ViewController: UITextFieldDelegate {
             timeLineTweets.removeAll()
             getTweet.makeRequest(keyWord: searchTextField.text!)
             searchTextField.resignFirstResponder()
+            
         }
         
         return true
@@ -114,27 +117,48 @@ extension ViewController: UITextFieldDelegate {
 }
 
 //MARK:- finishGetTweetInfoDelegate
-extension ViewController: finishGetTweetInfoDelegate{
+extension ViewController: finishGetTweetInfoDelegate,finishGetMoreTweetInfoDelegate,cannotGetTweetFromApiDelegate{
     
     func finishGetTweetInfo(tweets: [Tweet], Ids:[Int]) {
         
         if tweets.count == 0{
-            showAletr()
+            showAlert(title: "検索結果がありません", message: "キーワードを再入力してください")
+            searchTextField.text = ""
         }else{
             timeLineTweets.append(contentsOf: tweets)
+            minId = Ids.min()! - 1
+            tweetTimeLineTableView.reloadData()
+            tweetTimeLineTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
-        minId = Ids.min()! - 1
-        print(timeLineTweets.count)
+        
+        HUD.hide()
+        
+    }
+    
+    func finishGetMoreTweetInfo(tweets: [Tweet], Ids: [Int]) {
+        if tweets.count == 0{
+            showAlert(title: "検索結果がありません", message: "キーワードを再入力してください")
+            searchTextField.text = ""
+        }else{
+            timeLineTweets.append(contentsOf: tweets)
+            minId = Ids.min()! - 1
+        }
         tweetTimeLineTableView.reloadData()
         HUD.hide()
+    }
+    
+    func cannotGetTweetFromApi() {
+        HUD.hide()
+        showAlert(title: "通信エラー", message: "通信環境を確認し再検索してください。")
+        searchTextField.text = ""
     }
 }
 
 //MARK:- alert
 extension ViewController {
     
-    func showAletr(){
-        let alert = UIAlertController(title: "検索結果がありません", message: "キーワードを再入力してください", preferredStyle: .alert)
+    func showAlert(title: String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
