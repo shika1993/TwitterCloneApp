@@ -30,7 +30,7 @@ class ViewController: UIViewController{
         tweetTimeLineTableView.delegate = self
         searchTextField.delegate = self
         searchTextField.attributedPlaceholder = NSAttributedString(string: "キーワードを入力してください",attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        tweetTimeLineTableView.estimatedRowHeight = 600
+        tweetTimeLineTableView.estimatedRowHeight = 700
         tweetTimeLineTableView.rowHeight = UITableView.automaticDimension
         tweetTimeLineTableView.register(UINib(nibName: "TweetCellTableViewCell", bundle: nil), forCellReuseIdentifier: "customTweetCell")
     }
@@ -52,7 +52,7 @@ class ViewController: UIViewController{
 }
 
 //MARK:- TableViewdelegate & TableviewDatasource
-extension ViewController: UITableViewDataSource,UITableViewDelegate {
+extension ViewController: UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return timeLineTweets.count
@@ -64,13 +64,35 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
         if timeLineTweets.count != 0{
             
             tweetCell.userProfileImageView.sd_setImage(with: URL(string: timeLineTweets[indexPath.row].profileImageUrlString), completed: nil)
-            
-            if timeLineTweets[indexPath.row].mediaUrlString == ""{
-                tweetCell.tweetImageView.isHidden = true
-            }else{
-                tweetCell.tweetImageView.isHidden = false
-                tweetCell.tweetImageView.sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlString), completed: nil)
+            for imageView in tweetCell.tweetImageViews{
+                imageView.isHidden = true
             }
+            
+            switch timeLineTweets[indexPath.row].mediaUrlStrings.count {
+            case 1:
+                for i in 0...timeLineTweets[indexPath.row].mediaUrlStrings.count-1{
+                    tweetCell.tweetImageViews[i].isHidden = false
+                    tweetCell.tweetImageViews[i].sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlStrings[i]), completed: nil)
+                }
+            case 2:
+                for i in 0...timeLineTweets[indexPath.row].mediaUrlStrings.count-1{
+                    tweetCell.tweetImageViews[i].isHidden = false
+                    tweetCell.tweetImageViews[i].sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlStrings[i]), completed: nil)
+                }
+            case 3:
+                for i in 0...timeLineTweets[indexPath.row].mediaUrlStrings.count-1{
+                    tweetCell.tweetImageViews[i].isHidden = false
+                    tweetCell.tweetImageViews[i].sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlStrings[i]), completed: nil)
+                }
+            case 4:
+                for i in 0...timeLineTweets[indexPath.row].mediaUrlStrings.count-1{
+                    tweetCell.tweetImageViews[i].isHidden = false
+                    tweetCell.tweetImageViews[i].sd_setImage(with: URL(string: timeLineTweets[indexPath.row].mediaUrlStrings[i]), completed: nil)
+                }
+            default:
+                break
+            }
+                
             tweetCell.userNameLabel.text = timeLineTweets[indexPath.row].name
             tweetCell.userIDLabel.text = "@\(timeLineTweets[indexPath.row].userID)"
             tweetCell.createdAtLabel.text = String(timeLineTweets[indexPath.row].createdAt.prefix(10))
@@ -91,6 +113,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
             }
         }
     }
+    
 
 }
 

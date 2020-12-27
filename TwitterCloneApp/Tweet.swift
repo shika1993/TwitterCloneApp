@@ -15,11 +15,11 @@ struct Tweet {
     let userID:String
     let createdAt:String
     let text:String
-    let mediaUrlString:String
+    let mediaUrlStrings:[String]
     let favoriteCount:Int
     let retweetCount:Int
     
-    init(Id:Int,profileImageUrlString:String, name:String, userID:String, createdAt:String, text:String, mediaUrlString:String, favoriteCount:Int, retweetCount:Int){
+    init(Id:Int,profileImageUrlString:String, name:String, userID:String, createdAt:String, text:String, mediaUrlStrings:[String], favoriteCount:Int, retweetCount:Int){
         
         self.Id = Id
         self.profileImageUrlString = profileImageUrlString
@@ -27,7 +27,7 @@ struct Tweet {
         self.userID = userID
         self.createdAt = createdAt
         self.text = text
-        self.mediaUrlString = mediaUrlString
+        self.mediaUrlStrings = mediaUrlStrings
         self.favoriteCount = favoriteCount
         self.retweetCount = retweetCount
     }
